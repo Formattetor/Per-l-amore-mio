@@ -265,7 +265,7 @@
         <h1>Amore mio, vuoi essere la mia Valentina? <span class="emoji">❤️</span></h1>
         <div class="container">
             <button id="btn-si" onclick="accetta()">Sì!</button>
-            <button id="btn-no" onmouseover="scappa()" onclick="scappa()">No</button>
+            <button id="btn-no" onmouseover="scappa()" onclick="scappa()" onfocus="scappa()">No</button>
         </div>
         <div id="messaggio-fuga"></div>
     </div>
@@ -379,6 +379,7 @@
             // Check if user has set their Formspree ID
             if (formspreeId === 'YOUR_FORM_ID') {
                 // Skip actual submission and just show thank you page
+                console.warn('⚠️ Formspree non configurato! Sostituisci YOUR_FORM_ID con il tuo ID da https://formspree.io');
                 showPage('page-3');
                 return;
             }
