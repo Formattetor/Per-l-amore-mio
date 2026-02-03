@@ -377,7 +377,7 @@
             errorMessage.style.display = 'none';
 
             // Check if user has set their Formspree ID
-            if (formspreeId === 'YOUR_FORM_ID') {
+            if (formspreeId === 'xzdvwlje') {
                 // Skip actual submission and just show thank you page
                 console.warn('⚠️ Formspree non configurato! Sostituisci YOUR_FORM_ID con il tuo ID da https://formspree.io');
                 showPage('page-3');
@@ -385,7 +385,7 @@
             }
 
             try {
-                const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+                const response = await fetch(`https://formspree.io/f/xzdvwlje`, {
                     method: 'POST',
                     body: formData,
                     headers: {
