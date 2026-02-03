@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore numero casuale
+    </title>
+    <script>
+            let min = 0
+            let max = 100
+            const numeroIns = document.getElementById("numeroIndovinare");
+            let numeroDaIndovinare = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById("risultato").innerHTML = "Il numero casuale è stato generato";
+
+        function Indovina(numeroDaIndovinare) {
+            if (numeroIns.value == numeroDaIndovinare) {
+                document.getElementById("risultato").innerHTML = "Hai indovinato!";
+            } else if (numeroIns.value > numeroDaIndovinare) {
+                document.getElementById("risultato").innerHTML = "Il numero da indovinare è minore";
+            } else {
+                document.getElementById("risultato").innerHTML = "Il numero da indovinare è maggiore";
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Indovina il numero</h1>
+    <input type="number" id="numeroIndovinare" placeholder="Inserisci il numero da indovinare">
+    <button onclick="Indovina(numeroDaIndovinare)">Indovina</button>
+    <p id="risultato"></p>
+
+</body>
+</html>
