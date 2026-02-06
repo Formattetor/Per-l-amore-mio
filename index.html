@@ -254,6 +254,165 @@
             margin-top: 10px;
             display: none;
         }
+
+        /* Proposals page styles */
+        .proposals-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+        }
+
+        .proposals-container h2 {
+            color: #c2185b;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .proposals-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .proposal-option {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe8ec 100%);
+            border: 3px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .proposal-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(194, 24, 91, 0.3);
+        }
+
+        .proposal-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .proposal-option input[type="radio"]:checked + .proposal-content {
+            border-color: #c2185b;
+        }
+
+        .proposal-option input[type="radio"]:checked ~ .radio-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+        }
+
+        .proposal-option input[type="radio"]:checked ~ .radio-custom::after {
+            transform: scale(1);
+        }
+
+        .proposal-content {
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .radio-custom {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #f093fb;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .radio-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+
+        .proposal-emoji {
+            font-size: 2.5rem;
+            display: inline-block;
+            margin-right: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .proposal-title {
+            color: #c2185b;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .proposal-description {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .proposal-featured {
+            grid-column: 1;
+            background: linear-gradient(135deg, #ffd6e8 0%, #ffc2d9 100%);
+            border: 3px solid #f093fb;
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        .proposal-featured .proposal-emoji {
+            animation: bounce 1.5s infinite;
+        }
+
+        #btn-conferma-proposta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            font-weight: bold;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        #btn-conferma-proposta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        #btn-conferma-proposta:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .proposal-note {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        @media (min-width: 768px) {
+            .proposals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .proposal-featured {
+                grid-column: 1 / -1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -270,10 +429,52 @@
         <div id="messaggio-fuga"></div>
     </div>
 
-    <!-- Page 2: Valentine's Day question -->
+    <!-- Page 2: Date Proposals -->
     <div class="page" id="page-2">
-        <div class="form-container">
+        <div class="proposals-container">
             <h2>Yeee! Lo sapevo! 💕</h2>
+            <p class="proposal-note">Scegli una delle mie proposte per il nostro appuntamento:</p>
+            <div class="proposals-grid">
+                <!-- Featured proposal - centered -->
+                <div class="proposal-option proposal-featured" onclick="selectProposal(this)">
+                    <input type="radio" name="proposta" value="Fuga al Mare &amp; Ibla" id="proposta-1">
+                    <div class="proposal-content">
+                        <span class="proposal-emoji">🌊</span>
+                        <div class="proposal-title">Fuga al Mare &amp; Ibla</div>
+                        <div class="proposal-description">Pomeriggio a Marina di Ragusa a guardare le onde e poi cena romantica tra i vicoli illuminati di Ragusa Ibla.</div>
+                    </div>
+                    <div class="radio-custom"></div>
+                </div>
+                
+                <!-- Other proposals -->
+                <div class="proposal-option" onclick="selectProposal(this)">
+                    <input type="radio" name="proposta" value="Il Balcone di Sicilia" id="proposta-2">
+                    <div class="proposal-content">
+                        <span class="proposal-emoji">🌅</span>
+                        <div class="proposal-title">Il Balcone di Sicilia</div>
+                        <div class="proposal-description">Tramonto mozzafiato alla Villa di Chiaramonte Gulfi (si vede mezza Sicilia!) e cena in un posticino storico lì vicino.</div>
+                    </div>
+                    <div class="radio-custom"></div>
+                </div>
+                
+                <div class="proposal-option" onclick="selectProposal(this)">
+                    <input type="radio" name="proposta" value="La Classica scalinata" id="proposta-3">
+                    <div class="proposal-content">
+                        <span class="proposal-emoji">🏰</span>
+                        <div class="proposal-title">La Classica scalinata</div>
+                        <div class="proposal-description">Tramonto sulla scalinata di Caltagirone per scattare qualche foto insieme e cena tranquilla senza dover fare troppa strada.</div>
+                    </div>
+                    <div class="radio-custom"></div>
+                </div>
+            </div>
+            <button id="btn-conferma-proposta" onclick="confermaProposta()" disabled>Conferma la scelta</button>
+        </div>
+    </div>
+
+    <!-- Page 3: Alternative proposal form -->
+    <div class="page" id="page-3">
+        <div class="form-container">
+            <h2>Ma se hai un'altra proposta dimmela pure! 💕</h2>
             <form id="valentine-form">
                 <!-- 
                     Per ricevere le risposte via email:
@@ -284,16 +485,17 @@
                     5. Sostituisci "YOUR_FORM_ID" qui sotto con il tuo ID
                 -->
                 <input type="hidden" name="_formspree_id" value="YOUR_FORM_ID">
-                <label for="risposta">Cosa ti piacerebbe fare insieme per San Valentino?</label>
-                <textarea id="risposta" name="risposta" required placeholder="Scrivi qui la tua idea romantica..."></textarea>
+                <input type="hidden" name="proposta_selezionata" id="proposta_selezionata" value="">
+                <label for="risposta">Se preferisci fare qualcos'altro, scrivilo qui:</label>
+                <textarea id="risposta" name="proposta_personalizzata" placeholder="Oppure scrivi qui la tua idea romantica..."></textarea>
                 <button type="submit" id="btn-invia">Invia</button>
                 <div class="error-message" id="error-message">Ops! Qualcosa è andato storto. Riprova!</div>
             </form>
         </div>
     </div>
 
-    <!-- Page 3: Thank you -->
-    <div class="page" id="page-3">
+    <!-- Page 4: Thank you -->
+    <div class="page" id="page-4">
         <div class="thank-you">
             <div class="big-heart">❤️</div>
             <h2>Grazie amore! 🥰<br>Ho ricevuto la tua risposta!<br>Non vedo l'ora! 💕</h2>
@@ -333,6 +535,7 @@
         ];
 
         let messaggioIndex = 0;
+        let propostaSelezionata = '';
 
         function scappa() {
             const btnNo = document.getElementById('btn-no');
@@ -365,27 +568,49 @@
             document.getElementById(pageId).classList.add('active');
         }
 
+        function selectProposal(element) {
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+            propostaSelezionata = radio.value;
+            document.getElementById('btn-conferma-proposta').disabled = false;
+        }
+
+        function confermaProposta() {
+            if (propostaSelezionata) {
+                document.getElementById('proposta_selezionata').value = propostaSelezionata;
+                showPage('page-3');
+            }
+        }
+
         // Form submission
         document.getElementById('valentine-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
             const formspreeId = formData.get('_formspree_id');
-            const risposta = formData.get('risposta');
+            const propostaSelezionata = formData.get('proposta_selezionata');
+            const propostaPersonalizzata = formData.get('proposta_personalizzata');
             const errorMessage = document.getElementById('error-message');
             
             errorMessage.style.display = 'none';
 
+            // Validate that at least one proposal is provided
+            if (!propostaSelezionata && !propostaPersonalizzata.trim()) {
+                errorMessage.textContent = 'Per favore seleziona una proposta o scrivi la tua idea!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
             // Check if user has set their Formspree ID
-            if (formspreeId === 'xzdvwlje') {
+            if (formspreeId === 'YOUR_FORM_ID') {
                 // Skip actual submission and just show thank you page
                 console.warn('⚠️ Formspree non configurato! Sostituisci YOUR_FORM_ID con il tuo ID da https://formspree.io');
-                showPage('page-3');
+                showPage('page-4');
                 return;
             }
 
             try {
-                const response = await fetch(`https://formspree.io/f/xzdvwlje`, {
+                const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -394,12 +619,13 @@
                 });
 
                 if (response.ok) {
-                    showPage('page-3');
+                    showPage('page-4');
                 } else {
                     throw new Error('Form submission failed');
                 }
             } catch (error) {
                 console.error('Error:', error);
+                errorMessage.textContent = 'Ops! Qualcosa è andato storto. Riprova!';
                 errorMessage.style.display = 'block';
             }
         });
