@@ -588,10 +588,18 @@
             
             const formData = new FormData(this);
             const formspreeId = formData.get('_formspree_id');
-            const risposta = formData.get('risposta');
+            const propostaSelezionata = formData.get('proposta_selezionata');
+            const propostaPersonalizzata = formData.get('proposta_personalizzata');
             const errorMessage = document.getElementById('error-message');
             
             errorMessage.style.display = 'none';
+
+            // Validate that at least one proposal is provided
+            if (!propostaSelezionata && !propostaPersonalizzata.trim()) {
+                errorMessage.textContent = 'Per favore seleziona una proposta o scrivi la tua idea!';
+                errorMessage.style.display = 'block';
+                return;
+            }
 
             // Check if user has set their Formspree ID
             if (formspreeId === 'YOUR_FORM_ID') {
@@ -617,6 +625,7 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
+                errorMessage.textContent = 'Ops! Qualcosa è andato storto. Riprova!';
                 errorMessage.style.display = 'block';
             }
         });
